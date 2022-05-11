@@ -207,6 +207,10 @@ func (a *InstallConfig) platformValidation() error {
 	}
 	if a.Config.Platform.IBMCloud != nil {
 		client, err := icibmcloud.NewClient()
+		err = client.SetVPCServiceURLForRegion(context.TODO(), a.Config.Platform.IBMCloud.Region)
+		if err != nil {
+			return err
+		}
 		if err != nil {
 			return err
 		}
